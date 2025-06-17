@@ -1,0 +1,84 @@
+{
+  "numTotalTestSuites": 1,
+  "numPassedTestSuites": 1,
+  "numFailedTestSuites": 0,
+  "numPendingTestSuites": 0,
+  "numTotalTests": 6,
+  "numPassedTests": 6,
+  "numFailedTests": 0,
+  "numPendingTests": 0,
+  "numTodoTests": 0,
+  "startTime": 1750183024886,
+  "success": true,
+  "testResults": [
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            ""
+          ],
+          "fullName": " App jsx'e Reactstrap için bootstrap css'i eklenmiş",
+          "status": "passed",
+          "title": "App jsx'e Reactstrap için bootstrap css'i eklenmiş",
+          "duration": 30,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            ""
+          ],
+          "fullName": " App jsx'de kullanıcılar için state tanımlanmış",
+          "status": "passed",
+          "title": "App jsx'de kullanıcılar için state tanımlanmış",
+          "duration": 8,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            ""
+          ],
+          "fullName": " App jsx'de kullanıcılar için state'de başlangıç değeri boş array yapılmış",
+          "status": "passed",
+          "title": "App jsx'de kullanıcılar için state'de başlangıç değeri boş array yapılmış",
+          "duration": 7,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            ""
+          ],
+          "fullName": " App.jsx'de SideBar componentine prop olarak kullanıcılar gönderiliyor.",
+          "status": "passed",
+          "title": "App.jsx'de SideBar componentine prop olarak kullanıcılar gönderiliyor.",
+          "duration": 9,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            ""
+          ],
+          "fullName": " App.jsx'de Main componentine kayıtlı kullanıcıyı kullanıcılar listesine eklemek için gerekli prop  gönderiliyor.",
+          "status": "passed",
+          "title": "App.jsx'de Main componentine kayıtlı kullanıcıyı kullanıcılar listesine eklemek için gerekli prop  gönderiliyor.",
+          "duration": 8,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            ""
+          ],
+          "fullName": " Form doldurulunca kullanıcı kayıt oluyor",
+          "status": "passed",
+          "title": "Form doldurulunca kullanıcı kayıt oluyor",
+          "duration": 329,
+          "failureMessages": []
+        }
+      ],
+      "startTime": 1750183418018,
+      "endTime": 1750183418409,
+      "status": "passed",
+      "message": "",
+      "name": "/home/projects/vitejs-vite-rtvxvm/src/__tests__/index.test.jsx"
+    }
+  ]
+}
