@@ -1,41 +1,74 @@
-import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
-import { useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import {
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Button,
+  FormFeedback,
+} from 'reactstrap';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+
+const initialForm = {
+  email: '',
+  password: '',
+  terms: false,
+};
+
+const errorMessages = {
+  email: 'Please enter a valid email address',
+  password: 'Password must be at least 4 characters long',
+};
 
 export default function Login() {
+  const [form, setForm] = useState(initialForm);
+  const [errors, setErrors] = useState({});
+  const [isValid, setIsValid] = useState(false);
   const history = useHistory();
 
-  const initialForm = {
-    email: '',
-    password: '',
+  useEffect(() => {
+    const newErrors = {};
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      newErrors.email = errorMessages.email;
+    }
+
+    if (form.password.length < 4) {
+      newErrors.password = errorMessages.password;
+    }
+
+    if (!form.terms) {
+      newErrors.terms = 'You must accept the terms';
+    }
+
+    setErrors(newErrors);
+    setIsValid(Object.keys(newErrors).length === 0);
+  }, [form]);
+
+  const handleChange = (event) => {
+    const { name, value, type, checked } = event.target;
+    setForm({ ...form, [name]: type === 'checkbox' ? checked : value });
   };
 
-  const [formData, setFormData] = useState(initialForm);
-
-  function handleChange(event) {
-    setFormData({ ...formData, [event.target.name]: event.target.value });
-  }
-
-  function handleSubmit(event) {
+  const handleSubmit = (event) => {
     event.preventDefault();
+    if (!isValid) return;
+
     axios
       .get('https://6540a96145bedb25bfc247b4.mockapi.io/api/login')
-      .then((response) => {
-        const user = response.data.find(
-          (u) => u.email === formData.email && u.password === formData.password
+      .then((res) => {
+        const user = res.data.find(
+          (item) => item.email === form.email && item.password === form.password
         );
         if (user) {
+          setForm(initialForm);
           history.push('/main');
         } else {
           history.push('/error');
         }
-      })
-      .catch((error) => {
-        console.error('Login error:', error);
-        history.push('/error');
       });
-  }
+  };
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -46,9 +79,13 @@ export default function Login() {
           name="email"
           placeholder="Enter your email"
           type="email"
+          value={form.email}
           onChange={handleChange}
+          invalid={!!errors.email}
         />
+        {errors.email && <FormFeedback>{errors.email}</FormFeedback>}
       </FormGroup>
+
       <FormGroup>
         <Label for="examplePassword">Password</Label>
         <Input
@@ -56,12 +93,37 @@ export default function Login() {
           name="password"
           placeholder="Enter your password"
           type="password"
+          value={form.password}
           onChange={handleChange}
+          invalid={!!errors.password}
         />
+        {errors.password && <FormFeedback>{errors.password}</FormFeedback>}
       </FormGroup>
-      <Button color="primary" type="submit">
-        Sign In
-      </Button>
+
+      <FormGroup check>
+        <Input
+          id="terms"
+          name="terms"
+          type="checkbox"
+          checked={form.terms}
+          onChange={handleChange}
+          invalid={!!errors.terms}
+        />
+        <Label htmlFor="terms" check>
+          I agree to terms of service and privacy policy
+        </Label>
+        {errors.terms && (
+          <FormFeedback style={{ display: 'block' }}>
+            {errors.terms}
+          </FormFeedback>
+        )}
+      </FormGroup>
+
+      <FormGroup className="text-center p-4">
+        <Button color="primary" type="submit" disabled={!isValid}>
+          Sign In
+        </Button>
+      </FormGroup>
     </Form>
   );
 }
